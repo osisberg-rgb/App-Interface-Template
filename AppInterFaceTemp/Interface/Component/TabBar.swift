@@ -7,6 +7,16 @@
 
 import SwiftUI
 
+
+enum Tab: String, CaseIterable {
+    case home
+    case search
+    case favorite
+    case settings
+}
+
+
+
 struct TabBar: View{
 
         @Binding var selectedTab: Tab
@@ -44,8 +54,27 @@ struct TabBar: View{
                         }
                     }
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 12)
             }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
         }
+}
+
+
+struct TabButton: View {
+    let tab: Tab
+    @Binding var selectedTab: Tab
+    var namespace: Namespace.ID
+    @Binding var isTapped: Bool
+
+    var body: some View {
+        Text(tab.rawValue.capitalized)
+            .font(.system(size: 14))
+            .foregroundStyle(
+                selectedTab == tab ? .blue : .gray
+            )
+            .scaleEffect(
+                isTapped && selectedTab == tab ? 1.1 : 1.0
+            )
     }
+}
